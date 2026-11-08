@@ -1,26 +1,293 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@custom-variant dark (&:is(.dark *));
+
+/* Brand palette. Not "inline": utilities read var(--color-*) so .dark can remap them below. */
+@theme {
+  --color-red-50: #f9eaea;
+  --color-red-500: #c12a29;
+  --color-red-700: #891e1d;
+  --color-yellow-50: #fef5e9;
+  --color-yellow-100: #fde0ba;
+  --color-yellow-200: #fcd199;
+  --color-yellow-300: #fabd6b;
+  --color-yellow-500: #f89c22;
+  --color-grey-50: #e9e9e9;
+  --color-grey-300: #686868;
+  --color-grey-400: #4b4b4b;
+  --color-grey-500: #1e1e1e;
+  --color-ink: #333333;
+  --color-mist: #f6f8f9;
+  --color-cream: #fdfcfa;
+  --color-surface: #ffffff;
+  /* red used as text/outline; buttons and fills keep red-500 */
+  --color-red-ink: #c12a29;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-lufga), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-lufga), ui-sans-serif, system-ui, sans-serif;
+
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: oklch(1 0 0);
+  --foreground: #1e1e1e;
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: #c12a29;
+  --primary-foreground: #ffffff;
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: #c12a29;
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+/* Dark theme: warm near-blacks so the red/amber brand still glows. grey-500 stays dark on purpose:
+   it is used for fixed dark cards and for text that sits on fixed light/pastel panels. */
+.dark {
+  color-scheme: dark;
+  /* elevation: page #121110 < sections (mist/cream/yellow-50) < cards (surface) */
+  --color-surface: #2a2520;
+  --color-mist: #0e0d0c;
+  --color-cream: #171310;
+  --color-yellow-50: #211a13;
+  --color-yellow-100: #3a2a15;
+  --color-red-50: #3d1a18;
+  --color-grey-50: #3a3531;
+  --color-grey-300: #a8a097;
+  --color-grey-400: #c9c1b7;
+  --color-ink: #ece6de;
+  --color-red-ink: #ff6f66;
+  --color-grey-50: #2e2a27;
+  --color-grey-300: #a39b91;
+  --color-grey-400: #c4bcb2;
+  --color-ink: #e9e3db;
+  --background: #121110;
+  --foreground: #f3eee7;
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button:not(:disabled), [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  html {
+    @apply font-sans;
+  }
+  body {
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-yellow-100);
+    color: var(--color-red-500);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility container-site {
+  width: 100%;
+  max-width: 1920px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 7.29vw, 140px);
+}
+
+/* Fluid type scale: exact Figma size at 1920px, scales down proportionally */
+@utility text-fluid-64 {
+  font-size: clamp(34px, 3.334vw, 64px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+@utility text-fluid-56 {
+  font-size: clamp(30px, 2.917vw, 56px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+@utility text-fluid-48 {
+  font-size: clamp(26px, 2.5vw, 48px);
+  line-height: 1.47;
+  letter-spacing: -0.02em;
+}
+@utility text-fluid-40 {
+  font-size: clamp(22px, 2.084vw, 40px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+@utility text-fluid-32 {
+  font-size: clamp(20px, 1.667vw, 32px);
+  line-height: 1.47;
+  letter-spacing: -0.02em;
+}
+@utility text-fluid-28 {
+  font-size: clamp(19px, 1.459vw, 28px);
+  line-height: 1.47;
+  letter-spacing: -0.01em;
+}
+@utility text-fluid-24 {
+  font-size: clamp(16px, 1.25vw, 24px);
+  line-height: 1.47;
+  letter-spacing: -0.01em;
+}
+@utility text-fluid-20 {
+  font-size: clamp(15px, 1.042vw, 20px);
+  line-height: 1.47;
+  letter-spacing: -0.01em;
+}
+@utility text-fluid-18 {
+  font-size: clamp(14px, 0.9375vw, 18px);
+  line-height: 1.47;
+  letter-spacing: -0.01em;
+}
+@utility text-fluid-16 {
+  font-size: clamp(13px, 0.834vw, 16px);
+  line-height: 1.47;
+  letter-spacing: -0.01em;
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@utility animate-float {
+  animation: float-y 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+@keyframes nav-sheen {
+  0%,
+  70% {
+    transform: translateX(-120%) skewX(-12deg);
+  }
+  100% {
+    transform: translateX(420%) skewX(-12deg);
+  }
+}
+
+/* Theme switch: the new theme is revealed as a circle from the toggle (see ThemeToggle) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Dark: shadows don't read on near-black, so raised cards get a hairline edge instead */
+.dark .bg-surface {
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08);
+}
+/* footer wordmark (grey) and testimonial mark (red) are faint watermarks: lift them so they still read on dark */
+.dark [data-theme-art] {
+  filter: invert(1) hue-rotate(180deg) brightness(1.4);
 }

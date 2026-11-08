@@ -9,7 +9,7 @@ import { Magnetic } from "@/components/motion/magnetic";
 import { WordReveal } from "@/components/motion/word-reveal";
 
 // shortcut: placeholder launch moment (WAT), replace with the confirmed date before going live
-const LAUNCH_AT = new Date("2027-01-01T00:00:00+01:00").getTime();
+const LAUNCH_AT = new Date("2026-11-30T00:00:00+01:00").getTime();
 const BUILD_STARTED_AT = new Date("2026-09-01T00:00:00+01:00").getTime();
 
 const NOTIFY_URL =

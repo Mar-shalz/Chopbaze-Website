@@ -5,7 +5,6 @@ import { HowItWorks } from "@/components/home/how-it-works";
 import { YouControl } from "@/components/home/you-control";
 import { VendorPartner } from "@/components/home/vendor-partner";
 import { FeedingCrowd } from "@/components/home/feeding-crowd";
-import { Testimonials } from "@/components/home/testimonials";
 import { Faq } from "@/components/site/faq";
 
 // Canonical lives here, not in the root layout, so other pages don't inherit "/"
@@ -20,7 +19,6 @@ export default function Home() {
       <YouControl />
       <VendorPartner />
       <FeedingCrowd />
-      <Testimonials />
       <Faq />
     </>
   );

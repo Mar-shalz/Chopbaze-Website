@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { VendorHero, VendorReadyCta, WhoShouldApply, WhyJoin } from "@/components/vendor/vendor-sections";
-import { Testimonials } from "@/components/home/testimonials";
 import { Faq, VENDOR_FAQS } from "@/components/site/faq";
 
 export const metadata: Metadata = {
@@ -16,7 +15,6 @@ export default function VendorPage() {
       <VendorHero />
       <WhyJoin />
       <WhoShouldApply />
-      <Testimonials title="What Our Vendors Say About Us" />
       <Faq items={VENDOR_FAQS} label="Vendor FAQs" />
       <VendorReadyCta />
     </>
